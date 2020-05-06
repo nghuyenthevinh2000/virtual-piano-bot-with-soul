@@ -46,7 +46,6 @@ Người dùng phải định nghĩa (thời gian dừng ngắn, và thời gian
 thời gian dừng dài sẽ là (thời gian trung bình + thời gian dừng ngắn) 
 
 Tôi muốn công việc này được thực hiện bằng machine learning.
-Là sinh viên năm 2 CNTT Bách Khoa, kiến thức của tôi về mảng này còn rất hạn chế.
+Là sinh viên năm 2 CNTT Bách Khoa, kiến thức của tôi về mảng này còn rất hạn chế và đang được cải thiện dần.
 
-Thời gian dừng trong một bài hát sẽ là một chuỗi vector có độ dài là (tổng số nốt - 1)
-Đây sẽ là bài toán 
+Tôi cũng chưa có bất cứ ý tưởng gì cho áp dụng machine learning.
