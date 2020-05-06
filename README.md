@@ -49,3 +49,4 @@ Tôi muốn công việc này được thực hiện bằng machine learning.
 Là sinh viên năm 2 CNTT Bách Khoa, kiến thức của tôi về mảng này còn rất hạn chế và đang được cải thiện dần.
 
 Tôi cũng chưa có bất cứ ý tưởng gì cho áp dụng machine learning.
+Tôi rất mong các ý kiến đóng góp và sự chỉ bảo có thể giúp tôi đem lại linh hồn cho bot.
