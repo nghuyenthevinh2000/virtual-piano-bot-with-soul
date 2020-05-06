@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class TXT2AHK{
 
@@ -11,6 +13,7 @@ class TXT2AHK{
         this.target_dir = target_dir;
         this.time_pause_short = time_pause_short;
         this.time_pause = time_pause;
+        this.time_pause_immediate = time_pause_short;
     }
 
     public static void convert(String original_dir, String target_dir, int time_pause_short, int time_pause){
@@ -37,12 +40,15 @@ class TXT2AHK{
     private String original_dir;
     private String target_dir;
 
+    private int time_pause_immediate;
     private int time_pause_short;
     private int time_pause;
     private int range = 50;
+    private static final String TIME_IMMEDIATE = "i";
     private static final String TIME_SHORT = "s";
     private static final String TIME_NORMAL = "n";
     private static final String TIME_LONG = "l";
+    private String time_identification = TXT2AHK.TIME_NORMAL;
 
     private static final String DO_NOT_ORDER = "false";
 
@@ -107,6 +113,7 @@ class TXT2AHK{
     private List<String> handlerManager(String note){
         List<String> result = new LinkedList<String>();
 
+        //identify time_pause_long
         if(note.equals("|")){
             System.out.println("find long note");
             result.add(time_handler(TXT2AHK.TIME_LONG));
@@ -117,10 +124,25 @@ class TXT2AHK{
         if(len == 1){
             result.add(order_handler(one_note_handler(note.charAt(0))));
         }else{
+            Matcher m = Pattern.compile("(?:\\[|\\])").matcher(note);
+            int balance = 0;
+            while(m.find()){
+                if(m.group().equals("[")){balance++;}
+                if(m.group().equals("]")){balance--;}
+            }
+            if(balance==1){
+                time_identification = TXT2AHK.TIME_SHORT;
+                note = note.substring(1);
+            }
+            if(balance==-1){
+                time_identification = TXT2AHK.TIME_NORMAL;
+                note = note.substring(0,note.length()-1);
+            }
+
             result = consecutive_notes_handler(note);
         }
 
-        result.add(time_handler(TXT2AHK.TIME_NORMAL));
+        result.add(time_handler(time_identification));
         return result;
     }
 
@@ -150,7 +172,7 @@ class TXT2AHK{
     //handler for consecutive notes
     private List<String> consecutive_notes_handler(String note){
         List<String> result = new LinkedList<String>();
-        
+
         char[] arr = note.toCharArray();
         boolean is_mso_detected = false;
         String mso_chain = "";
@@ -163,7 +185,7 @@ class TXT2AHK{
             if(i == ']'){
                 is_mso_detected = false;
                 result.add(order_handler(mso_handler(mso_chain)));
-                result.add(time_handler(TXT2AHK.TIME_SHORT));
+                result.add(time_handler(TXT2AHK.TIME_IMMEDIATE));
                 mso_chain="";
                 continue;
             }
@@ -174,7 +196,7 @@ class TXT2AHK{
             //end MSO detection
 
             result.add(order_handler(one_note_handler(i)));
-            result.add(time_handler(TXT2AHK.TIME_SHORT));
+            result.add(time_handler(TXT2AHK.TIME_IMMEDIATE));
         }
         result.remove(result.size()-1);
 
@@ -210,6 +232,9 @@ class TXT2AHK{
     private String time_handler(String type){
         int time_range = time_pause;
         switch(type){
+            case TXT2AHK.TIME_IMMEDIATE:
+                time_range = time_pause_immediate;
+                break;
             case TXT2AHK.TIME_SHORT:
                 time_range = time_pause_short;
                 break;
