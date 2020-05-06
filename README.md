@@ -50,3 +50,15 @@ Là sinh viên năm 2 CNTT Bách Khoa, kiến thức của tôi về mảng này
 
 Tôi cũng chưa có bất cứ ý tưởng gì cho áp dụng machine learning.
 Tôi rất mong các ý kiến đóng góp và sự chỉ bảo có thể giúp tôi đem lại linh hồn cho bot.
+
+# II. Sử dụng
+Do tôi tập trung chủ yếu vào phần "xác định thời gian nghỉ giữa các nốt" nên tôi không tạo ra bất cứ GUI nào.
+
+Bước 1: cài đặt bộ cài AutoHotKey.exe
+Bước 2: chuyển bản nhạc muốn tự động chơi vào thư mục "Online piano sheet" dưới định dạng .txt
+Bước 3: chạy file java TXT2AHK.java bằng cmd hoặc bằng bất cứ IDE nào
+Bước 4: điền các thông tin mà TXT2AHK.java báo
+Bước 5: vào thư mục chạy file .ahk tương ứng
+Bước 6: Bật Virtual Piano trong tệp Virtual Piano
+Bước 7: Kiểm tra Virtual Piano đã chạy ngon lành bằng cách ấn thử vài nút
+Bước 8: ấn F1.
