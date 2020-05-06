@@ -194,6 +194,7 @@ class TXT2AHK{
         return order.toString();
     }
 
+    //give final order
     private String order_handler(String order){
         if(order.equals(" ") || order.equals("")){
             System.out.println("NULL ORDER PROBLEM");
