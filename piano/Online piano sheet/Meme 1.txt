@@ -1,0 +1,9 @@
+[i4]   [tqW]       %  [tsqW]    [a8]       s  [tqaW]       s 
+   [a%]  [tsqW]    [O4]   [tqW]    [i%]   [tqW]       8  [tqiW] 
+   [O%]  [tsqW]    [S!]   [qWT]    [O4]   [qWT]    [S%]   [qWT] 
+   [D4]   [qWT]    [s1]  [wtS0]    [s5]  [wtS0]    [s3]   [wt0] 
+[sligOH1]   [wt0]    [i4]   [tqW]       %  [tsqW]    [a8]       s 
+ [tqaW]       s    [a%]  [tsqW]    [O4]   [tqW]    [i%]   [tqW] 
+      8  [tqiW]    [O%]  [tsqW]    [S!]   [qWT]    [O4]   [qWT] 
+   [S%]   [qWT]    [D4]   [qWT]    [s1]  [wtS0]    [s5]  [wtS0] 
+   [s3]   [wt0] [sligOH1]   [wt0]
