@@ -62,3 +62,5 @@ Bước 5: vào thư mục chạy file .ahk tương ứng
 Bước 6: Bật Virtual Piano trong tệp Virtual Piano
 Bước 7: Kiểm tra Virtual Piano đã chạy ngon lành bằng cách ấn thử vài nút
 Bước 8: ấn F1.
+
+(Để hiểu hơn về cách đánh đàn Virtual Piano, lên trang https://virtualpiano.net/music-sheets/how-to-play/)
