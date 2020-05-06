@@ -20,31 +20,43 @@ class TXT2AHK{
         in.close();
     }
     public static void main(String[] args){
-        /*
         Scanner in = new Scanner(System.in);
-        System.out.print("original file:");
-        String original_dir = in.nextLine();
-        System.out.print("target file:");
-        String target_dir = in.nextLine();
-        System.out.print("time pause:");
-        int time_pause = Integer.parseInt(in.nextLine());
+        System.out.print("original file name:");
+        String original_dir = String.format("./Online piano sheet/%s.txt",in.nextLine());
+        System.out.print("target file name:");
+        String target_dir = String.format("./key bindings/%s.ahk",in.nextLine());
+        System.out.print("time pause_short:");
+        int time_pause_short = Integer.parseInt(in.nextLine());
+        System.out.print("time pause_normal:");
+        int time_pause_normal = Integer.parseInt(in.nextLine());
         in.close();
 
-        TXT2AHK.convert(original_dir, target_dir,time_pause);
-        */
-        TXT2AHK.convert("./Online piano sheet/Bohemian Rhapsody.txt", "./key bindings/Bohemian Rhapsody.ahk",150,300);
+        TXT2AHK.convert(original_dir, target_dir,time_pause_short,time_pause_normal);
     }
 
     private String original_dir;
     private String target_dir;
+
     private int time_pause_short;
     private int time_pause;
-
     private int range = 50;
     private static final String TIME_SHORT = "s";
     private static final String TIME_NORMAL = "n";
     private static final String TIME_LONG = "l";
 
+    private static final String DO_NOT_ORDER = "false";
+
+    private Map<Integer,Integer> na_char = new HashMap<Integer,Integer>();
+    {
+        na_char.put(33,1);
+        na_char.put(64,2);
+        na_char.put(36,4);
+        na_char.put(37,5);
+        na_char.put(94,6);
+        na_char.put(42,8);
+        na_char.put(40,9);
+    }
+    
     //module read txt file
     private Scanner read_txt_file(){
         Scanner in = null;
@@ -68,8 +80,20 @@ class TXT2AHK{
                 counter++;
                 String node = in.next();
 
+                boolean not_order = false;
                 List<String> orders = handlerManager(node);
                 for(String order : orders){
+                    //two time skips for an unwanted send and an unwanted sleep
+                    if(order.equals(TXT2AHK.DO_NOT_ORDER)){
+                        not_order = true;
+                        continue;
+                    }
+
+                    if(not_order){
+                        not_order = false;
+                        continue;
+                    }
+
                     writer.write(order);
                     writer.write("\n");
                 }
@@ -91,7 +115,7 @@ class TXT2AHK{
 
         int len = note.length();
         if(len == 1){
-            result.add(String.format("send %s",one_note_handler(note.charAt(0))));
+            result.add(order_handler(one_note_handler(note.charAt(0))));
         }else{
             result = consecutive_notes_handler(note);
         }
@@ -107,14 +131,6 @@ class TXT2AHK{
         
         int code = (int)note;
         //NON ALPHABET CHARACTER
-        Map<Integer,Integer> na_char = new HashMap<Integer,Integer>();
-        na_char.put(33,1);
-        na_char.put(64,2);
-        na_char.put(36,4);
-        na_char.put(37,5);
-        na_char.put(94,6);
-        na_char.put(42,8);
-        na_char.put(40,9);
         if(na_char.containsKey(code)){
             order = String.format("{Shift Down}{%d}{Shift Up}",na_char.get(code));
             return order;
@@ -146,7 +162,7 @@ class TXT2AHK{
             }
             if(i == ']'){
                 is_mso_detected = false;
-                result.add(String.format("send %s",mso_handler(mso_chain)));
+                result.add(order_handler(mso_handler(mso_chain)));
                 result.add(time_handler(TXT2AHK.TIME_SHORT));
                 mso_chain="";
                 continue;
@@ -157,7 +173,7 @@ class TXT2AHK{
             }
             //end MSO detection
 
-            result.add(String.format("send %s",one_note_handler(i)));
+            result.add(order_handler(one_note_handler(i)));
             result.add(time_handler(TXT2AHK.TIME_SHORT));
         }
         result.remove(result.size()-1);
@@ -176,6 +192,15 @@ class TXT2AHK{
         }
 
         return order.toString();
+    }
+
+    private String order_handler(String order){
+        if(order.equals(" ") || order.equals("")){
+            System.out.println("NULL ORDER PROBLEM");
+            return TXT2AHK.DO_NOT_ORDER;
+        }
+
+        return String.format("send %s",order);
     }
 
     //handler for time
