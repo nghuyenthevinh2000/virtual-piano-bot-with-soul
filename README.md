@@ -19,8 +19,34 @@ Mục tiêu này là tái tạo linh hồn cho bot.
 
 # I. Cách hoạt động
 Hoạt động được chia ra làm 2 phần chính:
-> Chức năng đánh đàn
-> Xác định thời gian nghỉ giữa các nốt.
+1. Chức năng đánh đàn
+2. Xác định thời gian nghỉ giữa các nốt.
 
 1. Chức năng đánh đàn
-Đây là phần dễ nhất, tập trung 2 tiếng đồng hồ viết code là ai cũng có thể làm được
+Đây là phần dễ nhất, 2 tiếng đồng hồ tập trung viết code là ai cũng có thể làm được
+
+Tôi sử dụng phần mềm Virtual Piano để đánh đàn
+Tôi sử dụng phần mềm AutoHotKey để tự động đánh phím
+Tôi viết code chuyển bản nhạc từ file txt thành các lệnh AutoHotKey hiểu
+
+Tất cả bot đánh đàn Virtual Piano trên git hub đều dừng tại bước này.
+Tôi muốn đi xa hơn nữa trên sứ mệnh đem lại linh hồn cho bot.
+
+2. Xác định thời gian nghỉ giữa các nốt
+Do hạn chế về kiến thức piano, tôi chỉ phân biệt ra ba loại khoảng thời gian dừng:
++ Ngắn 
++ Trung Bình: Đây là thời gian dừng mặc định giữa các nốt.
++ Dài
+
+Một chuỗi các đoạn dừng ngắn sẽ tạo ra bài hát có tiết tấu nhanh, dồn dập.
+Một chuỗi các đoạn dừng dài sẽ tạo ra một bài hát buồn
+
+Hiện tại tôi đang set up thời gian dừng bằng tay.
+Người dùng phải định nghĩa (thời gian dừng ngắn, và thời gian dừng trung bình)
+thời gian dừng dài sẽ là (thời gian trung bình + thời gian dừng ngắn) 
+
+Tôi muốn công việc này được thực hiện bằng machine learning.
+Là sinh viên năm 2 CNTT Bách Khoa, kiến thức của tôi về mảng này còn rất hạn chế.
+
+Thời gian dừng trong một bài hát sẽ là một chuỗi vector có độ dài là (tổng số nốt - 1)
+Đây sẽ là bài toán 
